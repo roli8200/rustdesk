@@ -372,7 +372,7 @@ jobs:
 
   build-for-macOS-arm64-selfhost:
     # use build-for-macOS instead
-    if: false
+    # if: false
     runs-on: [self-hosted, macOS, ARM64]
     steps:
       - name: Export GitHub Actions cache environment variables
@@ -548,7 +548,7 @@ jobs:
 
   build-rustdesk-ios-selfhost:
     #if: ${{ inputs.upload-artifact }}
-    if: false
+    # if: false
     runs-on: [self-hosted, macOS, ARM64]
     strategy:
       fail-fast: false
