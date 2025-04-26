@@ -24,6 +24,13 @@ jobs:
           override: true
       - name: System-Abhängigkeiten installieren
         run: sudo apt-get update && sudo apt-get install -y build-essential cmake pkg-config libssl-dev libgtk-3-dev libayatana-appindicator3-dev libxcb-shape0-dev libxcb-xfixes0-dev  libxkbcommon-dev libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev gstreamer1.0-tools gstreamer1.0-plugins-base gstreamer1.0-plugins-good gstreamer1.0-plugins-bad gstreamer1.0-plugins-ugly libglib2.0-dev libglib2.0-dev libdbus-1-dev libx11-dev libxcb1-dev libx11-xcb-dev  libxi-dev libxtst-dev libxrandr-dev libxinerama-dev  libxss-dev libxcursor-dev libxcomposite-dev libxdamage-dev libxext-dev libvulkan-dev libudev-dev libpam0g-dev
+      - name: Installiere libyuv
+        run: |
+          git clone https://chromium.googlesource.com/libyuv/libyuv
+          cd libyuv
+          cmake .
+          make -j$(nproc)
+          sudo make install
       - name: Build erstellen
         run: cargo build --release
       - name: Pakete erzeugen
