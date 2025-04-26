@@ -62,8 +62,10 @@ jobs:
         with:
           toolchain: stable
           override: true
-      - name: Installiere Opus Bibliothek
-        run: brew install opus
+      - name: Installiere Opus und libyuv Bibliotheken
+        run: |
+          brew install opus
+          brew install libyuv
       - name: Build erstellen
         run: cargo build --release
       - name: Artefakt hochladen
