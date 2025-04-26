@@ -63,7 +63,7 @@ jobs:
         run: |
             git clone https://github.com/microsoft/vcpkg.git
             cd vcpkg
-            bootstrap-vcpkg.bat
+            cmd /c bootstrap-vcpkg.bat
       - name: Opus via vcpkg installieren
         run: |
           .\vcpkg\vcpkg.exe install opus:x64-windows
