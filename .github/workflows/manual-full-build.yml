@@ -32,7 +32,9 @@ jobs:
           make -j$(nproc)
           sudo make install
       - name: Build erstellen
-        run: cargo build --release
+        run: |
+          export PKG_CONFIG_PATH="/usr/local/lib/pkgconfig:$PKG_CONFIG_PATH"
+          cargo build --release
       - name: Pakete erzeugen
         run: |
           cargo install cargo-deb
