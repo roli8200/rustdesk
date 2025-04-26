@@ -67,6 +67,8 @@ jobs:
         with:
           toolchain: stable
           override: true
+      - name: Installiere Opus Bibliothek
+        run: brew install opus
       - name: Build erstellen
         run: cargo build --release
       - name: Artefakt hochladen
