@@ -45,6 +45,14 @@ jobs:
         with:
           toolchain: stable
           override: true
+      - name: Vcpkg installieren
+        uses: lukka/run-vcpkg@v11
+        with:
+            vcpkgGitCommitId: 'latest'
+      - name: Opus via vcpkg installieren
+        run: |
+          ./vcpkg/vcpkg install opus:x64-windows
+          ./vcpkg/vcpkg integrate install
       - name: Build erstellen
         run: cargo build --release
       - name: Artefakt hochladen
