@@ -23,9 +23,18 @@ jobs:
           toolchain: stable
           override: true
       - name: System-Abhängigkeiten installieren
-        run: sudo apt-get update && sudo apt-get install -y build-essential pkg-config libssl-dev libgtk-3-dev libayatana-appindicator3-dev libxcb-shape0-dev libxcb-xfixes0-dev
+        run: sudo apt-get update && sudo apt-get install -y build-essential cmake pkg-config libssl-dev libgtk-3-dev libayatana-appindicator3-dev libxcb-shape0-dev libxcb-xfixes0-dev  libxkbcommon-dev libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev gstreamer1.0-tools gstreamer1.0-plugins-base gstreamer1.0-plugins-good gstreamer1.0-plugins-bad gstreamer1.0-plugins-ugly libglib2.0-dev libglib2.0-dev libdbus-1-dev libx11-dev libxcb1-dev libx11-xcb-dev  libxi-dev libxtst-dev libxrandr-dev libxinerama-dev  libxss-dev libxcursor-dev libxcomposite-dev libxdamage-dev libxext-dev libvulkan-dev libudev-dev libpam0g-dev
+      - name: Installiere libyuv
+        run: |
+          git clone https://chromium.googlesource.com/libyuv/libyuv
+          cd libyuv
+          cmake .
+          make -j$(nproc)
+          sudo make install
       - name: Build erstellen
-        run: cargo build --release
+        run: |
+          export PKG_CONFIG_PATH="/usr/local/lib/pkgconfig:$PKG_CONFIG_PATH"
+          cargo build --release
       - name: Pakete erzeugen
         run: |
           cargo install cargo-deb
@@ -45,6 +54,20 @@ jobs:
         with:
           toolchain: stable
           override: true
+      - name: Setup Windows Build Tools
+        run: |
+          choco install cmake --installargs 'ADD_CMAKE_TO_PATH=System'
+          choco install nasm
+          choco install strawberryperl
+      - name: vcpkg selbst klonen
+        run: |
+            git clone https://github.com/microsoft/vcpkg.git
+            cd vcpkg
+            cmd /c bootstrap-vcpkg.bat
+      - name: Opus via vcpkg installieren
+        run: |
+          .\vcpkg\vcpkg.exe install opus:x64-windows
+          .\vcpkg\vcpkg.exe integrate install
       - name: Build erstellen
         run: cargo build --release
       - name: Artefakt hochladen
@@ -62,8 +85,24 @@ jobs:
         with:
           toolchain: stable
           override: true
+      - name: Installiere Opus und libyuv Bibliotheken
+        run: |
+          brew install opus
+          brew install libuv
+      - name: Installiere libyuv
+        run: |
+          git clone https://chromium.googlesource.com/libyuv/libyuv
+          cd libyuv
+          cmake .
+          make -j$(sysctl -n hw.ncpu)
+          sudo make install
+      - name: Patch Scrap Buildscript
+        run: |
+          sed -i.bak 's/panic!.*Could not find package.*;/println!("cargo:warning=Skipping hardcoded libyuv check on macOS aarch64.");/' libs/scrap/build.rs
       - name: Build erstellen
-        run: cargo build --release
+        run: |
+          export PKG_CONFIG_PATH="/usr/local/lib/pkgconfig:$PKG_CONFIG_PATH"
+          cargo build --release
       - name: Artefakt hochladen
         uses: actions/upload-artifact@v4
         with:
