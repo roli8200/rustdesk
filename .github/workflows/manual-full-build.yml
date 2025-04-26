@@ -45,10 +45,15 @@ jobs:
         with:
           toolchain: stable
           override: true
+      - name: Setup Windows Build Tools
+        run: |
+          choco install cmake --installargs 'ADD_CMAKE_TO_PATH=System'
+          choco install nasm
+          choco install strawberryperl
       - name: Vcpkg installieren
         uses: lukka/run-vcpkg@v11
         with:
-            vcpkgGitCommitId: 'latest'
+            vcpkgGitCommitId: '520e2b97788e6d0ee7c8c4b0505b6a2c2b2e6e1d'
       - name: Opus via vcpkg installieren
         run: |
           ./vcpkg/vcpkg install opus:x64-windows
