@@ -73,7 +73,7 @@ jobs:
       - name: Installiere Opus und libyuv Bibliotheken
         run: |
           brew install opus
-          brew install libyuv
+          brew install libuv
       - name: Build erstellen
         run: cargo build --release
       - name: Artefakt hochladen
