@@ -66,8 +66,8 @@ jobs:
             bootstrap-vcpkg.bat
       - name: Opus via vcpkg installieren
         run: |
-          ./vcpkg/vcpkg install opus:x64-windows
-          ./vcpkg/vcpkg integrate install
+          .\vcpkg\vcpkg.exe install opus:x64-windows
+          .\vcpkg\vcpkg.exe integrate install
       - name: Build erstellen
         run: cargo build --release
       - name: Artefakt hochladen
