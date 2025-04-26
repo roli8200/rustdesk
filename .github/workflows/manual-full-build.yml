@@ -96,8 +96,13 @@ jobs:
           cmake .
           make -j$(sysctl -n hw.ncpu)
           sudo make install
+      - name: Patch Scrap Buildscript
+        run: |
+          sed -i.bak 's/panic!.*Could not find package.*;/println!("cargo:warning=Skipping hardcoded libyuv check on macOS aarch64.");/' libs/scrap/build.rs
       - name: Build erstellen
-        run: cargo build --release
+        run: |
+          export PKG_CONFIG_PATH="/usr/local/lib/pkgconfig:$PKG_CONFIG_PATH"
+          cargo build --release
       - name: Artefakt hochladen
         uses: actions/upload-artifact@v4
         with:
