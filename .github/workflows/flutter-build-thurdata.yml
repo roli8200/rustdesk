@@ -12,9 +12,16 @@ env:
 
 jobs:
   build-thurdata:
-    uses: ./.github/workflows/flutter-build.yml
-    with:
-      upload-artifact: true
-      upload-tag: ${{ github.ref_name }}
-    secrets: inherit
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout ThurData Branch
+        uses: actions/checkout@v3
+        with:
+          ref: thurdata
 
+      - name: Trigger Flutter Build
+        uses: ./.github/workflows/flutter-build.yml
+        with:
+          upload-artifact: true
+          upload-tag: ${{ github.ref_name }}
+        secrets: inherit
