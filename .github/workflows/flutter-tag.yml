@@ -9,8 +9,8 @@ on:
 
 jobs:
   run-flutter-tag-build:
-    uses: ./.github/workflows/flutter-build.yml
-    secrets: inherit
+    uses: ./.github/workflows/flutter-build.yml@main
     with:
       upload-artifact: true
       upload-tag: ${{ github.ref_name }}
+    secrets: inherit
