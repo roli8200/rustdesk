@@ -89,6 +89,13 @@ jobs:
         run: |
           brew install opus
           brew install libuv
+      - name: Installiere libyuv
+        run: |
+          git clone https://chromium.googlesource.com/libyuv/libyuv
+          cd libyuv
+          cmake .
+          make -j$(sysctl -n hw.ncpu)
+          sudo make install
       - name: Build erstellen
         run: cargo build --release
       - name: Artefakt hochladen
