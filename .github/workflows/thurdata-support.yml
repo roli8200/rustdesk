@@ -1,4 +1,4 @@
-name: ThurData UI Build
+name: ThurData Support-UI Build
 
 on:
   workflow_dispatch:
