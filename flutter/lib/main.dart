@@ -40,6 +40,8 @@ Future<void> main(List<String> args) async {
   earlyAssert();
   WidgetsFlutterBinding.ensureInitialized();
 
+  Config.instance.controlAll = false;
+
   debugPrint("launch args: $args");
   kBootArgs = List.from(args);
 
@@ -343,7 +345,7 @@ void _runApp(
     builder: (context) => GetMaterialApp(
       navigatorKey: globalKey,
       debugShowCheckedModeBanner: false,
-      title: title,
+      title: 'ThurData Support',
       theme: MyTheme.lightTheme,
       darkTheme: MyTheme.darkTheme,
       themeMode: themeMode,

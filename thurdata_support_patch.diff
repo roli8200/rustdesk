@@ -1,0 +1,36 @@
+diff --git a/src/ui/main_window.rs b/src/ui/main_window.rs
+index abcdef0..1234567 100644
+--- a/src/ui/main_window.rs
++++ b/src/ui/main_window.rs
+@@ -1,6 +1,7 @@
+ use iced::{
+     Alignment, Application, Color, Column, Command, Container, Element, Length, Row, Settings, Subscription, Text, 
++    Image,
+ };
+ use crate::config;
+ 
+@@ -150,7 +151,19 @@
+ impl Application for MainWindow {
+     type Message = Message;
+
+     fn title(&self) -> String {
+-        "RustDesk".to_string()
++        "ThurData Support Client".to_string()
+     }
+ 
+     fn view(&self) -> Element<Message> {
+-        // vorheriges Layout...
++        let logo = Image::new("resources/thurdata_logo.png").width(Length::Units(128)).height(Length::Units(128));
++
++        Column::new()
++            .padding(20)
++            .spacing(10)
++            .align_items(Alignment::Center)
++            .push(logo)
++            .push(Text::new("ThurData Support").size(40))
++            .push(Text::new(format!("ID: {}", self.id)).size(30))
++            .push(Text::new(format!("Zugangscode: {}", self.password)).size(30))
++            .push(Text::new("Unser Mitarbeiter kann sich nun verbinden.").size(20))
++            .into()
+     }
+ }
