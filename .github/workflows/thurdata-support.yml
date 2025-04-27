@@ -1,0 +1,28 @@
+name: ThurData UI Build
+
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      - 'v[0-9]+.[0-9]+.[0-9]+-thurdata'
+      - '[0-9]+.[0-9]+.[0-9]+-thurdata'
+
+env:
+  CUSTOM_VERSION: "-thurdata"
+
+jobs:
+  build-thurdata-ui:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout thurdata-ui branch
+        uses: actions/checkout@v3
+        with:
+          ref: thurdata-ui
+
+      - name: Run Flutter Build Workflow
+        uses: ./.github/workflows/flutter-build.yml
+        with:
+          upload-artifact: true
+          upload-tag: ${{ github.ref_name }}
+        secrets: inherit
