@@ -19,7 +19,8 @@ jobs:
 
       - name: Run Flutter Build Workflow
         uses: ./.github/workflows/flutter-build.yml
+        secrets: inherit
         with:
           upload-artifact: true
           upload-tag: "support"
-        secrets: inherit
+        
