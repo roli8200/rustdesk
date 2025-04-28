@@ -8,7 +8,7 @@ on:
       - '[0-9]+.[0-9]+.[0-9]+-thurdatasupport'
 
 jobs:
-  run-flutter-nightly-build:
+  run-flutter-thurdata-support:
     uses: ./.github/workflows/flutter-build.yml
     secrets: inherit
     with:
