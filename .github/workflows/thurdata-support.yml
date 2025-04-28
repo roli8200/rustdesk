@@ -10,7 +10,7 @@ on:
 jobs:
   build-thurdata-ui:
     runs-on: ubuntu-latest
-
+    
     steps:
       - name: Checkout thurdata-ui branch
         uses: actions/checkout@v3
@@ -18,8 +18,7 @@ jobs:
           ref: thurdata-ui
 
       - name: Run Flutter Build Workflow
-        uses: ./.github/workflows/flutter-build.yml
-        secrets: inherit
+        uses: ./.github/workflows/flutter-build.yml        
         with:
           upload-artifact: true
           upload-tag: "support"
