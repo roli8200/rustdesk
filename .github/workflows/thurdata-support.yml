@@ -8,18 +8,26 @@ on:
       - '[0-9]+.[0-9]+.[0-9]+-thurdatasupport'
 
 jobs:
-  build-thurdata-ui:
-    runs-on: ubuntu-latest
-    
-    steps:
-      - name: Checkout support-ui branch
-        uses: actions/checkout@v3
-        with:
-          ref: support-ui
+  run-flutter-nightly-build:
+    uses: ./.github/workflows/flutter-build.yml
+    secrets: inherit
+    with:
+      upload-artifact: true
+      upload-tag: "support"
 
-      - name: Run Flutter Build Workflow
-        uses: ./.github/workflows/flutter-build.yml        
-        with:
-          upload-artifact: true
-          upload-tag: "support"
+#jobs:
+#  build-thurdata-ui:
+#    runs-on: ubuntu-latest
+#    
+#    steps:
+#      - name: Checkout thurdatasupport branch
+#        uses: actions/checkout@v3
+#        with:
+#          ref: support-ui
+#
+#      - name: Run Flutter Build Workflow
+#        uses: ./.github/workflows/flutter-build.yml        
+#        with:
+#          upload-artifact: true
+#          upload-tag: "support"
         
