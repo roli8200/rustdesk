@@ -12,10 +12,10 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-      - name: Checkout thurdata-ui branch
+      - name: Checkout support-ui branch
         uses: actions/checkout@v3
         with:
-          ref: thurdata-ui
+          ref: support-ui
 
       - name: Run Flutter Build Workflow
         uses: ./.github/workflows/flutter-build.yml        
